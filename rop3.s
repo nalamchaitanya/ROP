@@ -29,7 +29,7 @@ main:
 	addq	$8, %rax
 	movq	(%rax), %rcx
 	leaq	-32(%rbp), %rax
-	movl	$104, %edx
+	movl	$120, %edx
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
 	call	memcpy
@@ -88,8 +88,20 @@ main:
 	movq	%rax, %rdi
 	call	memset
 	leaq	-32(%rbp), %rax
-	addq	$99, %rax
+	addq	$102, %rax
+	movl	$2, %edx
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	memset
+	leaq	-32(%rbp), %rax
+	addq	$107, %rax
 	movl	$5, %edx
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	memset
+	leaq	-32(%rbp), %rax
+	addq	$118, %rax
+	movl	$2, %edx
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	memset
@@ -106,26 +118,5 @@ main:
 	.cfi_endproc
 .LFE2:
 	.size	main, .-main
-	.globl	test
-	.type	test, @function
-test:
-.LFB3:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movq	$shellcode2, -8(%rbp)
-	movq	-8(%rbp), %rdx
-	movl	$0, %eax
-	call	*%rdx
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE3:
-	.size	test, .-test
 	.ident	"GCC: (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4"
 	.section	.note.GNU-stack,"",@progbits

