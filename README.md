@@ -29,3 +29,9 @@ In this project we will do the Return Oriented Programming attacks inside the gd
 ##SourceCode:
 
 The main goal of the project is to give executable permissions to the data segment of the program, which contains the [shellcode](https://github.com/nvsskchaitanya/BOFA#shellcodec) and then execute the shellcode to get the shell. We will do it step by step through the files.
+
+The main problem of the 64-bit addressing is that it has a lot of NULL bytes in its address example ```0x000000000040602d``` which makes it hard to tailor the string which overflows the buffer as these NULL bytes terminate the string. For this reason I always put spaces ```0x20``` instead of NULL bytes so that in the program I will replace it with NULL bytes using memset.
+
+###[firstROP.c](./firstROP.c)
+
+This file is to demonstrate how to change return address of the function by overflowing the buffer and executing a function which is not at all called.
