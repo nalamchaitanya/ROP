@@ -16,7 +16,7 @@ This attack works mainly on the ```retq``` instruction which pops one quad word 
 
 The main difference between **Return to lib-c attack** and **Return Oriented Programming** is that the former one executes a whole function in the c library and then returns to another function i.e it chains function together however the later one chains gadgets together there by gaining more control over the execution.
 
-In this project we will do the Return Oriented Programming attacks inside the gdb as it disables the ASLR(Address Space Layout Randomization) which is done for an executable to keep the address space of the lib-c change randomly.
+**In this project we will do the Return Oriented Programming attacks inside the gdb as it disables the ASLR(Address Space Layout Randomization), which is done for an executable to keep the address space of the lib-c change randomly.**
 
 ##Requirements:
 
@@ -36,4 +36,11 @@ The main problem of the 64-bit addressing is that it has a lot of NULL bytes in 
 
 This file is to demonstrate how to change return address of the function by overflowing the buffer and executing a function which is not at all called.
 
->The point to note is that arguments are kept in registers while calling functions and not on stack. So we can't change the arguments of a function by modifying stack. So the Calling Arguments section in this [paper](http://codearcana.com/posts/2013/05/28/introduction-to-return-oriented-programming-rop.html) is not implemented.
+###[callARG.c](./callARG.c)
+The point to note is that arguments are kept in registers while calling functions and not on stack. So we can't change the arguments of a function by modifying stack. So the Calling Arguments section in this [paper](http://codearcana.com/posts/2013/05/28/introduction-to-return-oriented-programming-rop.html) is not implemented.
+
+Now that we can change the return addresses of the function it's time to find gadgets and execute the instructions. But wait what instructions should we find, what is our final goal? The answer is [above](https://github.com/nvsskchaitanya/ROP#sourcecode). So how do we executable permissions to data segment?
+
+###[mprotect.c](./mprotect.c),[mprotect.s](./mprotect.s)
+
+This file demonstrates how to change the permissions of the data segment using a function called mprotect. Use man pages for more information. From the mprotect.s file we can see the arguments passed to mprotect via registers. We have to find the gadgets and chain them such that we have to execute this mprotect function and then execute the shellcode. We will do this step by step.
