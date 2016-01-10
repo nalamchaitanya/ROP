@@ -97,3 +97,7 @@ In the above snippet we found the address of the system ```0x7ffff7a5b640``` and
 ###[Loading a Constat to a Register](./rop1.c),[Instr to Hex Code](./instr2hex.c)
 
 This file demonstrates how to load an arbitrary value into ```%rdx``` register. Since we found out the address of ```0xc35a``` pattern we now use it. Put the value which has to be moved into ```%rdx``` register on the stack and use the instruction ```pop %rdx``` which moves the value into the register by popping the stack. Since it is followed by a ```retq``` instruction it returns to the address on top of stack. In this case we keep a test function to test whether the value has been moved into register or not. Similarly you can do for other registers also.
+
+###[Loading from memory to Register](./rop2.c)
+
+This file prints the value in the variable rop by doing a rop attack. This uses the code snippet "mov 48(%rax), %rax;" which moves a value from memory to address. Then prints the value in %rax in a round about manner by moving to and fro from %rdx register.
