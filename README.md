@@ -100,4 +100,8 @@ This file demonstrates how to load an arbitrary value into ```%rdx``` register. 
 
 ###[Loading from memory to Register](./rop2.c)
 
-This file prints the value in the variable rop by doing a rop attack. This uses the code snippet "mov 48(%rax), %rax;" which moves a value from memory to address. Then prints the value in %rax in a round about manner by moving to and fro from %rdx register.
+This file prints the value in the variable by doing a rop attack. This uses the code snippet "mov 48(%rax), %rax;" which moves a value from memory to address. Then prints the value in %rax in a round about manner by moving to and fro from %rdx register.
+
+###[Calling mprotect by ROP and then executing shellcode](./rop3.c)
+
+This file chains the gadgets and puts the register values as required for mprotect function and then executes mprotect then it also executes the shellcode and spawns the shell. Refer [instr2hex.c](./instr2hex.c) for address reference.
