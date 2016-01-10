@@ -35,3 +35,5 @@ The main problem of the 64-bit addressing is that it has a lot of NULL bytes in 
 ###[firstROP.c](./firstROP.c)
 
 This file is to demonstrate how to change return address of the function by overflowing the buffer and executing a function which is not at all called.
+
+>The point to note is that arguments are kept in registers while calling functions and not on stack. So we can't change the arguments of a function by modifying stack. So the Calling Arguments section in this [paper](http://codearcana.com/posts/2013/05/28/introduction-to-return-oriented-programming-rop.html) is not implemented.

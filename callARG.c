@@ -1,6 +1,17 @@
+/**
+ * Author: Nalam V S S Krishna Chaitanya,
+ * Details: CS13B021, IIT Madras.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/**
+ * This file tried to demonstrate the changing of the argument by overflowing
+ * the stack with the required arguments placed on it. However it is not
+ * possible as the arguments are passed through registers.
+ */
 
 char *not_used = "/bin/sh";
 
