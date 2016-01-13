@@ -94,7 +94,7 @@ warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd3c54, haltin
 
 In the above snippet we found the address of the system ```0x7ffff7a5b640``` and took it as start address for searching and kept a large amount of memory (+99999999) to search. ```/h``` signifies that we are searching for half words. The pattern is ```0xc35a```. From the result it has found 3 patterns at the corresponding addresses. Let us take the first address, i.e ```0x7ffff7ad1ee0``` and use it.
 
-###[Loading a Constat to a Register](./rop1.c),[Instr to Hex Code](./instr2hex.c)
+###[Loading a Constant to a Register](./rop1.c),[Instr to Hex Code](./instr2hex.c)
 
 This file demonstrates how to load an arbitrary value into ```%rdx``` register. Since we found out the address of ```0xc35a``` pattern we now use it. Put the value which has to be moved into ```%rdx``` register on the stack and use the instruction ```pop %rdx``` which moves the value into the register by popping the stack. Since it is followed by a ```retq``` instruction it returns to the address on top of stack. In this case we keep a test function to test whether the value has been moved into register or not. Similarly you can do for other registers also.
 
