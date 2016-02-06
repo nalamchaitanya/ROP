@@ -26,6 +26,8 @@ The main difference between **Return to lib-c attack** and **Return Oriented Pro
 
  We should be adding the gcc option ```-fno-stack-protector``` to prevent any canaries added to the functions.
 
+ You should also be familiar with ```gdb``` as we will be using it throughout the project.
+
 ##SourceCode:
 
 The main goal of the project is to give executable permissions to the data segment of the program, which contains the [shellcode](https://github.com/nvsskchaitanya/BOFA#shellcodec) and then execute the shellcode to get the shell. We will do it step by step through the files.
